@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "description": "OAuth 2 Device Code Flow",
   "main": "dist/index.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "start": "ts-node src/index.ts",
-    "prepublish": "tsc",
+    "prepublish": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "rimraf ./dist && tsc"
   },
   "author": "",
   "license": "ISC",
@@ -16,7 +18,8 @@
     "axios": "^0.24.0"
   },
   "devDependencies": {
-    "@types/node": "^16.11.6"
+    "@types/node": "^16.11.6",
+    "rimraf": "^3.0.2"
   },
   "types": "dist/index.d.ts"
 }
