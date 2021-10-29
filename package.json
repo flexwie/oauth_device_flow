@@ -21,5 +21,15 @@
     "@types/node": "^16.11.6",
     "rimraf": "^3.0.2"
   },
-  "types": "dist/index.d.ts"
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "oauth",
+    "oauth2",
+    "device",
+    "flow",
+    "code",
+    "grant",
+    "auth",
+    "cli"
+  ]
 }

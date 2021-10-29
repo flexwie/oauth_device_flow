@@ -3,7 +3,7 @@
 This is a client for using OAuth2 Device Flows in applications with limited interation possibilities.
 
 ```typescript
-import { DeviceFlowClient } from "index";
+import { DeviceFlowClient } from "oauth_device_flow";
 
 const app = new DeviceFlowClient({
   audience: "AUDIENCE",
