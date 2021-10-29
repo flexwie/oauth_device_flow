@@ -1,10 +1,11 @@
 {
-  "name": "device_code",
+  "name": "oauth_device_flow",
   "version": "1.0.0",
   "description": "OAuth 2 Device Code Flow",
   "main": "dist/index.js",
   "scripts": {
     "start": "ts-node src/index.ts",
+    "prepublish": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc"
   },
@@ -15,5 +16,6 @@
   },
   "devDependencies": {
     "@types/node": "^16.11.6"
-  }
+  },
+  "types": "dist/index.d.ts"
 }
