@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "OAuth 2 Device Code Flow",
   "main": "dist/index.js",
+  "files": ["dist"],
   "scripts": {
     "start": "ts-node src/index.ts",
+    "prepublish": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc"
   },
