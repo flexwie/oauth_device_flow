@@ -1,6 +1,6 @@
 ## OAuth2 Device Flow Client
 
-This is a client for using OAuth2 Device Flows in applications with limited interation possibilities.
+This is a client for using OAuth2 Device Flows in applications with limited interaction possibilities.
 
 ```typescript
 import { DeviceFlowClient } from "oauth_device_flow";
