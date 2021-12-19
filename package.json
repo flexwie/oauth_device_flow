@@ -1,6 +1,6 @@
 {
   "name": "oauth_device_flow",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "OAuth 2 Device Code Flow",
   "main": "dist/index.js",
   "files": [
