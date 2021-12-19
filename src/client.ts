@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { ResponseError } from "./error";
+import { URLSearchParams } from 'url'
 import {
   CacheEntry,
   ClientCache,
