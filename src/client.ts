@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import { ResponseError } from "./error";
 import {
   CacheEntry,
@@ -16,7 +16,7 @@ export class DeviceFlowClient {
   constructor(
     public connection: DeviceFlowDetails,
     public options?: ClientOptions
-  ) {}
+  ) { }
 
   private log(str: string) {
     if (this.options?.output) {
@@ -52,15 +52,31 @@ export class DeviceFlowClient {
         ? [...this.connection.scopes, "offline_access"]
         : this.connection.scopes;
 
-      // get device and user code from remote
-      const response = await axios.post<DeviceCodeResponse>(
-        this.connection.code_url,
-        {
-          client_id: this.connection.client_id,
-          scope: scopes.join(" "),
-          audience: this.connection.audience,
-        }
-      );
+      let response
+
+      if (this.options?.useParams) {
+        const params = new URLSearchParams()
+        params.append('client_id', this.connection.client_id)
+        params.append('audience', this.connection.audience)
+        params.append('scope', scopes.join(" "))
+
+        response = await axios.post<DeviceCodeResponse>(this.connection.code_url, params, {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
+        })
+      } else {
+        // get device and user code from remote
+        response = await axios.post<DeviceCodeResponse>(
+          this.connection.code_url,
+          {
+            client_id: this.connection.client_id,
+            scope: scopes.join(" "),
+            audience: this.connection.audience,
+          }
+        );
+
+      }
 
       return response.data;
     } catch (error: any) {
@@ -81,14 +97,32 @@ export class DeviceFlowClient {
     device_code: string
   ): Promise<TokenResponseSuccess | null> {
     try {
+      let response: AxiosResponse
+
       // request the access token
-      const response = await axios.post<
-        Partial<TokenResponseError & TokenResponseSuccess>
-      >(this.connection.token_url, {
-        client_id: this.connection.client_id,
-        grant_type: "urn:ietf:params:oauth:grant-type:device_code",
-        device_code,
-      });
+      if (this.options?.useParams) {
+        const params = new URLSearchParams()
+        params.append('client_id', this.connection.client_id)
+        params.append('device_code', device_code)
+        params.append('grant_type', "urn:ietf:params:oauth:grant-type:device_code")
+
+        response = await axios.post<
+          Partial<TokenResponseError & TokenResponseSuccess>
+        >(this.connection.token_url, params, {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
+        });
+
+      } else {
+        response = await axios.post<
+          Partial<TokenResponseError & TokenResponseSuccess>
+        >(this.connection.token_url, {
+          client_id: this.connection.client_id,
+          grant_type: "urn:ietf:params:oauth:grant-type:device_code",
+          device_code,
+        });
+      }
 
       // return tokens if successfull
       if (response.data.access_token) {

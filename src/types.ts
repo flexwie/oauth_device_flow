@@ -53,6 +53,10 @@ export type ClientOptions = {
    * Request a refresh token?
    */
   refreshToken?: boolean;
+  /**
+   * Weather too send data as params in requests
+   */
+  useParams?: boolean
 };
 
 export type CacheEntry = TokenResponseSuccess & {
@@ -72,10 +76,10 @@ export type DeviceCodeResponse = {
 
 export type TokenResponseError = {
   error:
-    | "authorization_pending"
-    | "slow_down"
-    | "expired_token"
-    | "access_denied";
+  | "authorization_pending"
+  | "slow_down"
+  | "expired_token"
+  | "access_denied";
   error_description: string;
 };
 
